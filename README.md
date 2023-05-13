@@ -1,6 +1,6 @@
 [![pipeline status](../../../badges/main/pipeline.svg)](../../../pipelines/latest)
 
-# WE 1, Blatt 05
+# WE 1, Blatt 06
 
 Zur Bearbeitung und Abgabe des Aufgabenblattes gehen Sie wie folgt vor:
 
