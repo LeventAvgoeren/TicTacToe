@@ -22,7 +22,8 @@ const LEER: Leer = " ";
 export class SuperTicTacToe {
 
     // Felddeklarationen nach Bedarf / Field declarations as needed
-    
+    spielfeld:string [][]=[];
+    size:number;
 
     /**
      * Erstellt ein leeres `size` x `size`-Felder großes Spielfeld.
@@ -36,9 +37,28 @@ export class SuperTicTacToe {
      * 
      * @param size Größe des Spielfelds, muss >0 sein / size of the playing field, must be > 0
      */
-    constructor(size: number) {
-        throw new Error("Function not implemented yet")
+    constructor(size: number,spielfeld:string[][]) {
+        this.size=size;
+        this.spielfeld=spielfeld;
+        //setzte die größe gleich mit der länge des Arrays 
+        this.spielfeld.length=size;
+        //gucke nach ob es über 0 ist und setzte jede stelle auf LEER
+        //weil es ein 2D array ist zwei For Loops
+        try{
+            if(spielfeld.length>0){
+                for (let index = 0; index < size; index++) {
+                        this.spielfeld[index].push(LEER);
+                   for (let j = 0; j < size; j++) {
+                        this.spielfeld[j].push(LEER);
+                   }
+                }
+        }
     }
+    catch{
+        throw Error("Bitte zahlen über 0 benutzen")
+    }
+    
+}
 
     /**
      * Setzt ein Feld entweder mit "X" oder mit "O".
