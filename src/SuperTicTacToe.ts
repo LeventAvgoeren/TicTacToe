@@ -22,8 +22,8 @@ const LEER: Leer = " ";
 export class SuperTicTacToe {
 
     // Felddeklarationen nach Bedarf / Field declarations as needed
-    spielfeld:string [][]=[];
-    size:number;
+    spielfeld: string[][] = [];
+    size: number;
 
     /**
      * Erstellt ein leeres `size` x `size`-Felder großes Spielfeld.
@@ -36,29 +36,23 @@ export class SuperTicTacToe {
      * All fields are to be set to {@link LEER}.
      * 
      * @param size Größe des Spielfelds, muss >0 sein / size of the playing field, must be > 0
+     * [LEER,LEER,LEER],
+     * [LEER,LEER,LEER],
+     * [LEER,LEER,LEER]
      */
-    constructor(size: number,spielfeld:string[][]) {
-        this.size=size;
-        this.spielfeld=spielfeld;
-        //setzte die größe gleich mit der länge des Arrays 
-        this.spielfeld.length=size;
-        //gucke nach ob es über 0 ist und setzte jede stelle auf LEER
-        //weil es ein 2D array ist zwei For Loops
-        try{
-            if(spielfeld.length>0){
-                for (let index = 0; index < size; index++) {
-                        this.spielfeld[index].push(LEER);
-                   for (let j = 0; j < size; j++) {
-                        this.spielfeld[j].push(LEER);
-                   }
-                }
+    constructor(size: number) {
+        this.size = size;
+        if (size <= 0) {
+            throw new Error("Bitte zahlen über 0 benutzen");
+        }
+        for (let index = 0; index < size; index++) {
+            this.spielfeld.push([]);
+            for (let j = 0; j < size; j++) {
+                this.spielfeld[index].push(LEER);
+            }
         }
     }
-    catch{
-        throw Error("Bitte zahlen über 0 benutzen")
-    }
-    
-}
+
 
     /**
      * Setzt ein Feld entweder mit "X" oder mit "O".
@@ -73,23 +67,27 @@ export class SuperTicTacToe {
      * @param y y-Koordinate, muss zwischen 0 (inkl.) und size (exklusive) sein / x-coordinate, must be between 0 (incl.) and size (excl.)
      * @param stein "X" oder Kreis "O" (Typ {@link Spieler})
      * @return true, wenn Feld gesetzt werden konnte
+     * Gucken nach ob der gestzte  punkt im spielfeld ist 
+     * Gucken dann ob die stelle leer ist wenn ja wird sie ersetzt mit dem stein 
+     * andern falls return false 
      */
     public set(x: number, y: number, stein: Spieler): boolean {
-        throw new Error("Function not implemented yet")
-    }
+        throw new Error("Function not implemented yet");    }
 
     /**
      * Gibt die Belegung eines Felds zurück.
-     * 
+     *  
      * ----------------
      * Returns the current value of a field.
      * 
      * @param x x-Koordinate, muss zwischen 0 (inkl.) und size (exklusive) sein / x-coordinate, must be between 0 (incl.) and size (excl.)
      * @param y y-Koordinate, muss zwischen 0 (inkl.) und size (exklusive) sein / x-coordinate, must be between 0 (incl.) and size (excl.)
      * @return "X", "O" oder {@link LEER} (" ")
+     * Gucke nach ob x & y in dem array sind 
+     * Gucke dann ob der angegebene array spot gleich einer der zeichen ist wenn ja wird wert retuned 
      */
-    public get(x: number, y: number): Spieler|Leer {
-        throw new Error("Function not implemented yet")
+    public get(x: number, y: number): Spieler | Leer {
+        throw new Error("Function not implemented yet");
     }
 
     /**
@@ -108,7 +106,6 @@ export class SuperTicTacToe {
      * @return "X", "O" oder null
      */
     public gewinner(): Spieler | null {
-        throw new Error("Function not implemented yet")
+        throw new Error("Function not implemented yet");
     }
-
 }
