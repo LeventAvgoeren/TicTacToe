@@ -5,6 +5,11 @@ test("size überprüfen", () => {
   let test = new SuperTicTacToe(3);
   expect(test.size).toBe(3);
 })
+
+test("size überprüfen", () => {
+  let test = new SuperTicTacToe(10);
+  expect(test.size).toBe(10);
+})
 test("Alles auf LEER überprüfen", () => {
   let actuel = new SuperTicTacToe(3);
   let LEER = " ";
@@ -97,3 +102,104 @@ test("get Sonderfall y<0", () => {
   let actual = new SuperTicTacToe(3);
   expect(() => actual.get(2, -1)).toThrow('Bitte zahlen über 0 und unter size größe');
 })
+
+
+
+//Gewinner Test
+test("gewinner zeile 0",()=>{
+let actual=new SuperTicTacToe(3);
+actual.set(0, 0, "X")
+actual.set(0, 1, "X")
+actual.set(0, 2, "X")
+expect(actual.gewinner()).toBe("X");
+})
+test("gewinner zeile 1",()=>{
+  let actual=new SuperTicTacToe(3);
+  actual.set(1, 0, "X")
+  actual.set(1, 1, "X")
+  actual.set(1, 2, "X")
+  expect(actual.gewinner()).toBe("X");
+  })
+test("gewinner zeile 2",()=>{
+    let actual=new SuperTicTacToe(3);
+    actual.set(2, 0, "X")
+    actual.set(2, 1, "X")
+    actual.set(2, 2, "X")
+    expect(actual.gewinner()).toBe("X");
+})
+test("kein gewinner zeile 2",()=>{
+  let actual=new SuperTicTacToe(3);
+  actual.set(2, 0, "X")
+  actual.set(2, 1, "O")
+  actual.set(2, 2, "X")
+  expect(actual.gewinner()).toBe(null);
+})
+
+test("gewinner Spalte 0", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 0, "X");
+  actual.set(1, 0, "X");
+  actual.set(2, 0, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+test("kein gewinner Spalte 0", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 0, "O");
+  actual.set(1, 0, "X");
+  actual.set(2, 0, "X");
+  expect(actual.gewinner()).toBe(null);
+});
+test("gewinner Spalte 1", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 1, "X");
+  actual.set(1, 1, "X");
+  actual.set(2, 1, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+
+test("gewinner Spalte 2", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 2, "X");
+  actual.set(1, 2, "X");
+  actual.set(2, 2, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+
+
+test("gewinner Diagonal oben links unten rechts", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 0, "X");
+  actual.set(1, 1, "X");
+  actual.set(2, 2, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+test("gewinner Diagonal unten rechts unten", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(2, 2, "X");
+  actual.set(1, 1, "X");
+  actual.set(0, 0, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+
+test("gewinner Diagonal gespiegelt", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 2, "X");
+  actual.set(1, 1, "X");
+  actual.set(2, 0, "X");
+  expect(actual.gewinner()).toBe("X");
+});
+test("gewinner Diagonal gespiegelt", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 2, "O");
+  actual.set(1, 1, "O");
+  actual.set(2, 0, "O");
+  expect(actual.gewinner()).toBe("O");
+});
+
+test("kein gewinner diagonale", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(2, 2, "O");
+  actual.set(1, 1, "X");
+  actual.set(0, 0, "O");
+  expect(actual.gewinner()).toBe(null);
+});

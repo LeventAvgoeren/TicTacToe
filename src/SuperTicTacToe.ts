@@ -36,8 +36,8 @@ export class SuperTicTacToe {
      * All fields are to be set to {@link LEER}.
      * 
      * @param size Größe des Spielfelds, muss >0 sein / size of the playing field, must be > 0
-     * [LEER,LEER,LEER]
-     * [LEER,LEER,LEER]
+     * [LEER,LEER,LEER],
+     * [LEER,LEER,LEER],
      * [LEER,LEER,LEER]
      */
     constructor(size: number) {
@@ -131,28 +131,66 @@ export class SuperTicTacToe {
      * @return "X", "O" oder null
      */
     public gewinner(): Spieler | null {
-        throw new Error("Function not implemented yet");
+        //zeilen gewinner ermitteln every guckt nur nach ob alle werte aus dem array 
+        //für die function true zurück gibt wenn ja return X oder O 
+        for (let index = 0; index < this.spielfeld.length; index++) {
+            let elementZeile = this.spielfeld[index];
+            if (elementZeile.every(a => a === "X")) {
+                return "X";
+            }
+            else if (elementZeile.every(a => a === "O")) {
+                return "O"
+            }
+        }
+        //Gucken ob die spalten gleich sind
+        //spalten array inerhalt schleife packen damit für jede spalte ein leeres vorhanden ist 
+        for (let i = 0; i < this.spielfeld.length; i++) {
+            let spalte = [];
+            for (let j = 0; j < this.spielfeld.length; j++) {
+                let elementSpalte = this.spielfeld[j][i]
+                spalte.push(elementSpalte);
+            }
+            if (spalte.every(a => a === "X")) {
+                return "X";
+            }
+            else if (spalte.every(a => a === "O")) {
+                return "O";
+            }
+        }
+        //Gucken ob die Diagonalen gleich sind 
+        let diagonale = [];
+
+        for (let i = 0; i < this.spielfeld.length; i++) {
+            for (let j = 0; j < this.spielfeld.length; j++) {
+                let elementDia = this.spielfeld[i][i];
+                let elementDia2 = this.spielfeld[j][j];
+                diagonale.push(elementDia);
+                diagonale.push(elementDia2);
+            }
+            if (diagonale.every(a => a === "X")) {
+                return "X";
+            }
+            else if (diagonale.every(a => a === "O")) {
+                return "O"
+            }
+        }
+
+        //gespiegelt 
+        let diagonale1 = [];
+        let diagonale2 = [];
+      
+        for (let i = 0; i < this.spielfeld.length; i++) {
+          diagonale1.push(this.spielfeld[i][i]);
+          diagonale2.push(this.spielfeld[i][this.spielfeld.length - 1 - i]);
+        }
+      
+        if (diagonale1.every(a => a === "X") || diagonale2.every(a => a === "X")) {
+          return "X";
+        } else if (diagonale1.every(a => a === "O") || diagonale2.every(a => a === "O")) {
+          return "O";
+        }
+      
+        return null; // Kein Gewinner gefunden
     }
-
-
-    /**
-// Gewinnerprüfung der Diagonalen
-let diagonale1 = [];
-let diagonale2 = [];
-
-for (let i = 0; i < this.spielfeld.length; i++) {
-  diagonale1.push(this.spielfeld[i][i]);
-  diagonale2.push(this.spielfeld[i][this.spielfeld.length - 1 - i]);
-}
-
-if (diagonale1.every(a => a === "X") || diagonale1.every(a => a === "O")) {
-  return diagonale1[0]; // Rückgabe des Gewinners ("X" oder "O")
-}
-
-if (diagonale2.every(a => a === "X") || diagonale2.every(a => a === "O")) {
-  return diagonale2[0]; // Rückgabe des Gewinners ("X" oder "O")
-}
-
-     */
 
 }
