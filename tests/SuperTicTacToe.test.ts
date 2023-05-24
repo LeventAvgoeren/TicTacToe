@@ -19,3 +19,81 @@ test("Alles auf LEER überprüfen", () => {
 test("Konstruktor Sonderfall <0", () => {
   expect(() => new SuperTicTacToe(-1)).toThrow('Bitte zahlen über 0 benutzen');
 })
+
+
+
+//Setter Test
+test("set Testen auf LEER ", () => {
+  let LEER = " ";
+  let actual = new SuperTicTacToe(3);
+  expect(actual.set(1, 1, "X")).toBeTruthy();
+})
+test("set doppelt bei X ", () => {
+  let actual = new SuperTicTacToe(3);
+  let first = actual.set(1, 1, "X");
+  first = actual.set(1, 1, "X");
+  expect(first).toBeFalsy();
+});
+test("set doppelt bei O ", () => {
+  let actual = new SuperTicTacToe(3);
+  let first = actual.set(1, 1, "O");
+  first = actual.set(1, 1, "O");
+  expect(first).toBeFalsy();
+});
+test("set doppelt bei unterschiedlichen ", () => {
+  let actual = new SuperTicTacToe(3);
+  let first = actual.set(1, 1, "X");
+  first = actual.set(1, 1, "O");
+  expect(first).toBeFalsy();
+});
+test("set Sonderall x>size", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.set(4, 3, "X")).toThrow('Spielfeld übertreten');
+})
+test("set Sonderall x<0", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.set(-1, 4, "O")).toThrow('Spielfeld übertreten');
+})
+test("set Sonderall y>size", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.set(3, 4, "O")).toThrow('Spielfeld übertreten');
+})
+test("set Sonderall y<0", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.set(3, -1, "O")).toThrow('Spielfeld übertreten');
+})
+
+
+
+//Getter Test
+test("get X ", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(2, 2, "X");
+  expect(actual.get(2, 2)).toBe("X");
+})
+test("get O", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(2, 2, "O");
+  expect(actual.get(2, 2)).toBe("O");
+})
+test("get LEER", () => {
+  let actual = new SuperTicTacToe(3);
+  let LEER = " ";
+  expect(actual.get(2, 2)).toBe(LEER);
+})
+test("get Sonderfall x>size", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.get(4, 2)).toThrow('Bitte zahlen über 0 und unter size größe');
+})
+test("get Sonderfall x<0", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.get(-1, 2)).toThrow('Bitte zahlen über 0 und unter size größe');
+})
+test("get Sonderfall y>size", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.get(2, 4)).toThrow('Bitte zahlen über 0 und unter size größe');
+})
+test("get Sonderfall y<0", () => {
+  let actual = new SuperTicTacToe(3);
+  expect(() => actual.get(2, -1)).toThrow('Bitte zahlen über 0 und unter size größe');
+})

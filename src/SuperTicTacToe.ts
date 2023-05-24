@@ -36,8 +36,8 @@ export class SuperTicTacToe {
      * All fields are to be set to {@link LEER}.
      * 
      * @param size Größe des Spielfelds, muss >0 sein / size of the playing field, must be > 0
-     * [LEER,LEER,LEER],
-     * [LEER,LEER,LEER],
+     * [LEER,LEER,LEER]
+     * [LEER,LEER,LEER]
      * [LEER,LEER,LEER]
      */
     constructor(size: number) {
@@ -72,7 +72,19 @@ export class SuperTicTacToe {
      * andern falls return false 
      */
     public set(x: number, y: number, stein: Spieler): boolean {
-        throw new Error("Function not implemented yet");    }
+
+        if (x > this.size || x < 0 || y > this.size || y < 0) {
+            throw new Error("Spielfeld übertreten");
+        }
+
+        else if (this.spielfeld[x][y] === LEER) {
+            this.spielfeld[x][y] = stein;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     /**
      * Gibt die Belegung eines Felds zurück.
@@ -87,7 +99,20 @@ export class SuperTicTacToe {
      * Gucke dann ob der angegebene array spot gleich einer der zeichen ist wenn ja wird wert retuned 
      */
     public get(x: number, y: number): Spieler | Leer {
-        throw new Error("Function not implemented yet");
+        if (x > this.size || x < 0 || y > this.size || y < 0) {
+            throw new Error("Bitte zahlen über 0 und unter size größe");
+        }
+        else if (this.spielfeld[x][y] === "X") {
+            return "X";
+        }
+        else if (this.spielfeld[x][y] === "O") {
+            return "O";
+        }
+        else {
+            this.spielfeld[x][y] === LEER
+            return LEER;
+        }
+
     }
 
     /**
@@ -108,4 +133,26 @@ export class SuperTicTacToe {
     public gewinner(): Spieler | null {
         throw new Error("Function not implemented yet");
     }
+
+
+    /**
+// Gewinnerprüfung der Diagonalen
+let diagonale1 = [];
+let diagonale2 = [];
+
+for (let i = 0; i < this.spielfeld.length; i++) {
+  diagonale1.push(this.spielfeld[i][i]);
+  diagonale2.push(this.spielfeld[i][this.spielfeld.length - 1 - i]);
+}
+
+if (diagonale1.every(a => a === "X") || diagonale1.every(a => a === "O")) {
+  return diagonale1[0]; // Rückgabe des Gewinners ("X" oder "O")
+}
+
+if (diagonale2.every(a => a === "X") || diagonale2.every(a => a === "O")) {
+  return diagonale2[0]; // Rückgabe des Gewinners ("X" oder "O")
+}
+
+     */
+
 }
