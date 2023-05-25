@@ -70,4 +70,107 @@ test("Gibt einen leeren String zurück wenn die Zelle noch nicht gesetzt wurde",
   table.setCell(2, 2, "");
   expect(table.getCell(2, 2)).toBe(" ");
 });
+
+
+
+
+
+
+
+test('paltziert ein leeres array', () => {
+        let table = new Table([
+          ["1", "2", "3"], 
+          ["4", "5", "6"], 
+          ["7", "8", "9"]]);
+        let result = table.insertRowBefore(2);
+        expect(result).toEqual(true);
+        expect(table._rows).toEqual([
+          ["1", "2", "3"], 
+          [], 
+          ["4", "5", "6"], 
+          ["7", "8", "9"]]);
+    });
+test('nicht platzieren von einem leeren array', () => {
+        let table = new Table([
+        ["1", "2", "3"], 
+        ["4", "5", "6"], 
+        ["7", "8", "9"]]);
+        let result = table.insertRowBefore(5);
+        expect(table._rows).toEqual([
+        ["1", "2", "3"], 
+        ["4", "5", "6"], 
+        ["7", "8", "9"]]);
+});
+test('löscht zeile', () => {
+  let table = new Table([
+    ["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
+  let result = table.deleteRow(2);
+  expect(table._rows).toEqual([
+    ["1", "2", "3"], 
+    ["7", "8", "9"]]);
+});
+test('nicht deleten', () => {
+  let table = new Table([
+    ["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
+  let result = table.deleteRow(5);
+  expect(table._rows).toEqual(
+    [["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
+});
+test("nicht 0 zeile löschen", () => {
+  let table = new Table(
+    [["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
+  let result = table.deleteRow(0);
+  expect(table._rows).toEqual(
+    [["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
+});
+test("false soll eintreffen über array hinaus ", () => {
+  let table = new Table(
+    [["1", "2", "3"], 
+     ["4", "5", "6"], 
+     ["7", "8", "9"]]);
+  let result = table.insertColumnLeft(4);
+  expect(table._rows).toEqual(
+    [["1", "2", "3"],
+    ["4", "5", "6"],
+    ["7", "8", "9"]]);
+});
+test('should insert a column at the specified index', () => {
+  let table = new Table([["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]);
+  let result = table.insertColumnLeft(2);
+  expect(table._rows).toEqual([["1", " ", "2", "3"], ["4", " ", "5", "6"], ["7", " ", "8", "9"]]);
+});
+test("Spalte löschen",()=>{
+  let table = new Table(
+  [["1", "2", "3"], 
+   ["4", "5", "6"], 
+   ["7", "8", "9"]]);
+  let result = table.deleteColumn(2);
+  expect(table._rows).toEqual(
+    [["1", "3"], 
+     ["4", "6"], 
+     ["7", "9"]]);
+});
+test("Nichts soll gelöscht werden ",()=>{
+  let table = new Table([["1", "2", "3"], 
+                         ["4", "5", "6"],
+                         ["7", "8", "9"]]);
+  let result = table.deleteColumn(5);
+
+  expect(result).toBe(false);
+  expect(table._rows).toEqual(
+  [["1", "2", "3"], 
+   ["4", "5", "6"], 
+   ["7", "8", "9"]]);
+});
+
 // Ergänze hier die Tests für Table

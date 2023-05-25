@@ -60,7 +60,7 @@ export class Table {
         while(this.values.length<=newRow){
             this.values.push([]);
         }
-        //Falls spalten anzahl kleiner ist als newRow dann packe ich leere strings ind ei zeilen rein 
+        //Falls spalten anzahl kleiner ist als newRow dann packe ich leere strings und ein zeilen rein 
         while (this.values.length<=newCol) {
             this.values.push([]);
         }
@@ -103,7 +103,17 @@ export class Table {
     * @return true, wenn tatsächlich eine Zeile eingefügt wurde.
     */
     insertRowBefore(row: number): boolean {
-        throw new Error("Function not implemented yet")
+        let newRow= row-1;
+        //Falls der Zeilenindex größer-gleich als die aktuelle Anzahl an Zeilen ist
+        if(row>=this.values.length|| newRow<=0){
+            return false;
+        }
+        else{  
+            //anfang,wieviel wir entfernen wollen und was wir rein machen wollen
+            this.values.splice(newRow,0,[]);
+            return true;
+        }
+        
     }
 
     /**
@@ -116,7 +126,14 @@ export class Table {
      * @returns true, wenn tatsächlich etwas verändert wurde
      */
     deleteRow(row: number): boolean {
-        throw new Error("Function not implemented yet")
+        let newRow= row-1;
+        if(newRow>=this.values.length || newRow<=0){
+            return false;
+        }
+        else{
+            this.values.splice(newRow,1);
+            return true ;
+        }
     }
 
     /**
@@ -131,7 +148,17 @@ export class Table {
      * @return true, wenn tatsächlich eine Spalte eingefügt wurde.
      */
     insertColumnLeft(col: number): boolean {
-        throw new Error("Function not implemented yet")
+        let newCol=col-1;
+        //Gucken nach ob newCol über die größe geht oder ob es eine negative zahl ist 
+        if(newCol>this.values[0].length ||newCol<=0){
+            return false;
+        }
+        else{
+            for (let index = 0; index < this.values.length; index++) {
+                this.values[index].splice(newCol,0," ");
+            }
+            return true;
+        }
     }
 
     /**
@@ -144,7 +171,18 @@ export class Table {
      * @returns true, wenn tatsächlich etwas verändert wurde
      */
     deleteColumn(col: number): boolean {
-        throw new Error("Function not implemented yet")
+        let newCol=col-1
+        //checken ob es über das feld geht und ob negative zahl
+        if(newCol>this.values[0].length||newCol<=0){
+            return false
+        }
+        else{
+            //lösche alle spalten an dem gewünschten index
+            for (let index = 0; index < this.values.length; index++) {
+                this.values[index].splice(newCol,1)
+            }
+            return true 
+        }
     }
 
 }
