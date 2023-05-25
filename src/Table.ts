@@ -26,12 +26,9 @@ export class Table {
      * 
      */
     values: string[][] = [];
-    constructor(values?: string[][]) {
-        //Wenn es undefined isrt wird ein fehler gewrofen wenn nicht wird eine deepCopy gemacht 
-        if(values === undefined){
-            throw new Error("bitte eine gültige eingabe")
-        }
-        else{
+    constructor(values?: string[][]) { 
+        //Wenn ein Value vorhanden dann mach eine deepCopy vom 2D Array
+        if(values){
             this.values=values.map((deepCopy=> [...deepCopy]))
         }
 
@@ -56,7 +53,22 @@ export class Table {
      * @return Der Text, der vorher in der Zelle war (evtl. "", aber nie null oder undefined)
      */
     setCell(col: number, row: number, text: string): string {
-        throw new Error("Function not implemented yet")
+        //setzten col und row auf -1 damit wir 0 kriegen 
+        let newCol=col-1;
+        let newRow=row-1;
+        //falls zeilen anzahl kleiner ist werden immer mehr arrays rein gepusht
+        while(this.values.length<=newRow){
+            this.values.push([]);
+        }
+        //Falls spalten anzahl kleiner ist als newRow dann packe ich leere strings ind ei zeilen rein 
+        while (this.values.length<=newCol) {
+            this.values.push([]);
+        }
+        //speichere alten wert ab um ihn zu returnen ||falls es den nicht gibt return leeren string
+        let oldText=this.values[newRow][newCol]||" ";
+        //setze neuen text  
+        this.values[newRow][newCol] =text;
+        return oldText;
     }
 
     /**
@@ -68,7 +80,15 @@ export class Table {
      * @return der Text, evtl. leer ("") aber nie null oder undefined
      */
     getCell(col: number, row: number): string {
-        throw new Error("Function not implemented yet")
+        let newCol=col-1;
+        let newRow=row-1;
+        //Wenn es ausserhalb leigt dann gib leeren string zurück 
+        if(newRow>this.values.length && newCol >this.values.length){
+            return " ";
+        }
+        else{
+            return this.values[newRow][newCol]|| " ";
+        }
     }
 
     /**
