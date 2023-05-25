@@ -164,6 +164,14 @@ test("gewinner Spalte 2", () => {
   actual.set(2, 2, "X");
   expect(actual.gewinner()).toBe("X");
 });
+test("gewinner Spalte 2", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 2, "X");
+  actual.set(1, 2, "O");
+  actual.set(2, 2, "X");
+  expect(actual.gewinner()).toBe(null);
+});
+
 
 
 test("gewinner Diagonal oben links unten rechts", () => {

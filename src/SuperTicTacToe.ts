@@ -39,6 +39,7 @@ export class SuperTicTacToe {
      * [LEER,LEER,LEER],
      * [LEER,LEER,LEER],
      * [LEER,LEER,LEER]
+     * arrays werden hinterinander gestapelt mit dem push weil immer ein neues gepsut wird 
      */
     constructor(size: number) {
         this.size = size;
@@ -157,39 +158,22 @@ export class SuperTicTacToe {
                 return "O";
             }
         }
-        //Gucken ob die Diagonalen gleich sind 
-        let diagonale = [];
-
-        for (let i = 0; i < this.spielfeld.length; i++) {
-            for (let j = 0; j < this.spielfeld.length; j++) {
-                let elementDia = this.spielfeld[i][i];
-                let elementDia2 = this.spielfeld[j][j];
-                diagonale.push(elementDia);
-                diagonale.push(elementDia2);
-            }
-            if (diagonale.every(a => a === "X")) {
-                return "X";
-            }
-            else if (diagonale.every(a => a === "O")) {
-                return "O"
-            }
-        }
 
         //gespiegelt 
         let diagonale1 = [];
         let diagonale2 = [];
-      
+
         for (let i = 0; i < this.spielfeld.length; i++) {
-          diagonale1.push(this.spielfeld[i][i]);
-          diagonale2.push(this.spielfeld[i][this.spielfeld.length - 1 - i]);
+            diagonale1.push(this.spielfeld[i][i]);
+            diagonale2.push(this.spielfeld[i][this.spielfeld.length - 1 - i]);
         }
-      
+
         if (diagonale1.every(a => a === "X") || diagonale2.every(a => a === "X")) {
-          return "X";
+            return "X";
         } else if (diagonale1.every(a => a === "O") || diagonale2.every(a => a === "O")) {
-          return "O";
+            return "O";
         }
-      
+
         return null; // Kein Gewinner gefunden
     }
 

@@ -19,17 +19,29 @@ export class Table {
      * 
      * @param values Initiale Werte (äußeres Array enthält die Zeilen), optional!
      *      Achtung: Die Werte müssen werden kopiert! Dies ist bei einem mehrdimensionalen Array nicht trivial!
+     * 
+     * Bei der Deep Copy werden die Werte der obersten Ebene und auch alle 
+     * darunterliegenden Objekte rekursiv kopiert. Dadurch entstehen 
+     * separate und unabhängige Objekte, die ihre eigenen Speicherbereiche nutzen
+     * 
      */
+    values: string[][] = [];
     constructor(values?: string[][]) {
-        throw new Error("Function not implemented yet");
-    }
+        //Wenn es undefined isrt wird ein fehler gewrofen wenn nicht wird eine deepCopy gemacht 
+        if(values === undefined){
+            throw new Error("bitte eine gültige eingabe")
+        }
+        else{
+            this.values=values.map((deepCopy=> [...deepCopy]))
+        }
 
+    }
     /**
      * Nur für Tests!
      * @return Zweidimensionales Array mit Zeilen und Spalten.
      */
     get _rows() {
-        return this.rows; // Feld muss noch geeignet angelegt werden.
+        return this.values // Feld muss noch geeignet angelegt werden.
     }
 
     /**

@@ -12,5 +12,17 @@ test("Zeilen- und Spalten -- extern vs. intern", () => {
         /* 1 */ [        ], 
         /* 2 */ [ , , "x"]])
 })
+test("Konstruktor test ",()=>{
+    const test = [
+        ['A', 'B', 'C'],
+        ['D', 'E', 'F'],
+        ['G', 'H', 'I'],
+      ];
+    let table=new Table(test);
 
+    expect(table._rows).toStrictEqual(test);
+})
+test("throw error", () => {
+    expect(() => new Table()).toThrow("bitte eine gültige eingabe");
+  });
 // Ergänze hier die Tests für Table
