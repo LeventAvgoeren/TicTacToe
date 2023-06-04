@@ -93,107 +93,120 @@ test("Gibt einen leeren String zurück wenn die Zelle noch nicht gesetzt wurde",
 
 test('paltziert ein leeres array', () => {
         let table = new Table([
-          ["1", "2", "3"], 
-          ["4", "5", "6"], 
-          ["7", "8", "9"]]);
+          ["a", "s", "d"], 
+          ["k", "l", "f"], 
+          ["j", "h", "g"]
+        ]);
         let result = table.insertRowBefore(2);
         expect(result).toEqual(true);
         expect(table._rows).toEqual([
-          ["1", "2", "3"], 
-          [], 
-          ["4", "5", "6"], 
-          ["7", "8", "9"]]);
+          ["a", "s", "d"], 
+          [],
+          ["k", "l", "f"], 
+          ["j", "h", "g"]
+        ]);
     });
 test('nicht platzieren von einem leeren array', () => {
         let table = new Table([
-        ["1", "2", "3"], 
-        ["4", "5", "6"], 
-        ["7", "8", "9"]]);
+          ["a", "s", "d"], 
+          ["k", "l", "f"], 
+          ["j", "h", "g"]
+        ]);
         let result = table.insertRowBefore(5);
         expect(table._rows).toEqual([
-        ["1", "2", "3"], 
-        ["4", "5", "6"], 
-        ["7", "8", "9"]]);
+          ["a", "s", "d"], 
+          ["k", "l", "f"], 
+          ["j", "h", "g"]
+        ]);
 });
-test('löscht zeile', () => {
+test('löscht Zeile', () => {
   let table = new Table([
-    ["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+    ["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]
+  ]);
   let result = table.deleteRow(2);
   expect(table._rows).toEqual([
-    ["1", "2", "3"], 
-    ["7", "8", "9"]]);
+    ["a", "s", "d"], 
+    ["j", "h", "g"]
+  ]);
 });
+
 test('nicht deleten', () => {
-  let table = new Table([
-    ["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+  let table = new Table(
+    [["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]]);
   let result = table.deleteRow(5);
   expect(table._rows).toEqual(
-    [["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+    [["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]]);
 });
 test("nicht 0 zeile löschen", () => {
   let table = new Table(
-    [["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+    [["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]]);
   let result = table.deleteRow(0);
   expect(table._rows).toEqual(
-    [["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+    [["a", "s", "d"], 
+     ["k", "l", "f"], 
+     ["j", "h", "g"]]);;
 });
 test("Insert column false soll eintreffen über array hinaus ", () => {
   let table = new Table(
-    [["1", "2", "3"], 
-     ["4", "5", "6"], 
-     ["7", "8", "9"]]);
+    [["a", "s", "d"], 
+     ["k", "l", "f"], 
+     ["j", "h", "g"]]);
   let result = table.insertColumnLeft(4);
   expect(table._rows).toEqual(
-    [["1", "2", "3"],
-    ["4", "5", "6"],
-    ["7", "8", "9"]]);
+    [["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]]);
 });
 
 
 test('InsertColumn " hinzufügen an 2 stelle', () => {
   let table = new Table(
-    [["1", "2", "3"], 
-    ["4", "5", "6"], 
-    ["7", "8", "9"]]);
+    [["x", "y", "z"], 
+    ["o", "i", "u"], 
+    ["p", "a", "s"]]);
   let result = table.insertColumnLeft(2);
   expect(table._rows).toEqual(
-    [["1", "", "2", "3"], 
-    ["4", "", "5", "6"],
-    ["7", "", "8", "9"]]);
+    [["x", "", "y", "z"], 
+    ["o", "", "i", "u"],
+    ["p", "", "a", "s"]]);
 });
 
-test("Delete Spalte löschen",()=>{
-  let table = new Table(
-  [["1", "2", "3"], 
-   ["4", "5", "6"], 
-   ["7", "8", "9"]]);
+test("löscht Spalte", () => {
+  let table = new Table([
+    ["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]
+  ]);
   let result = table.deleteColumn(2);
-  expect(table._rows).toEqual(
-    [["1", "3"], 
-     ["4", "6"], 
-     ["7", "9"]]);
+  expect(table._rows).toEqual([
+    ["a", "d"], 
+    ["k", "f"], 
+    ["j", "g"]
+  ]);
 });
+
 test("Nichts soll gelöscht werden ",()=>{
-  let table = new Table([["1", "2", "3"], 
-                         ["4", "5", "6"],
-                         ["7", "8", "9"]]);
+  let table = new Table([
+    ["a", "s", "d"], 
+    ["k", "l", "f"], 
+    ["j", "h", "g"]
+  ]);
   let result = table.deleteColumn(5);
 
   expect(result).toBe(false);
-  expect(table._rows).toEqual(
-  [["1", "2", "3"], 
-   ["4", "5", "6"], 
-   ["7", "8", "9"]]);
+  expect(table._rows).toEqual([
+      ["a", "s", "d"], 
+      ["k", "l", "f"], 
+      ["j", "h", "g"]
+    ]);
 });
 
 // Ergänze hier die Tests für Table
