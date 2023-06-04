@@ -33,22 +33,36 @@ test("Zeilen- und Spalten -- extern vs. intern", () => {
       /* 2 */ [,,,"x" ]])
 })
 
-test("Überschreiben von einem bestehendem wert", () => {
-  const table = new Table([["a", "b"], 
-                           ["c", "d"]]);
-  const oldText = table.setCell(2, 2, "x");
-  expect(oldText).toBe("d");
-  expect(table._rows).toStrictEqual([["a", "b"], 
-                                     ["c", "x"]]);
+test("Setze Text in eine vorhandene Zelle", () => {
+  const table = new Table([["a", "b"], ["c", "d"]]);
+  const oldText = table.setCell(2, 1, "x");
+  expect(oldText).toBe("b"); // Der vorherige Text in der Zelle sollte "b" sein
+  expect(table._rows).toStrictEqual([["a", "x"], ["c", "d"]]); // Die Tabelle sollte aktualisiert werden
 });
-test("Tabelle erweitern", () => {
+
+test("Setze Text in eine neue Zelle außerhalb des aktuellen Bereichs", () => {
   const table = new Table([["a", "b"], 
-                           ["c", "d"]]);
-  table.setCell(3, 3, "x");
-  expect(table._rows).toStrictEqual([["a", "b"], 
-                                     ["c", "d"],
-                                     [,,"x"   ]]);
+  ["c", "d"]]);
+
+  expect(table._rows).toStrictEqual([
+    ["a", "b"],
+    ["c", "d"],
+  ]); // Ursprüngliche Struktur der Tabelle
+
+  const oldText = table.setCell(3, 3, "x");
+  expect(oldText).toBe(""); // Da die Zelle leer war, sollte der vorherige Text ein leerer String sein
+
+  expect(table._rows).toAlmostEqual([
+    ["a", "b", ""],
+    ["c", "d", ""],
+    ["", "", "x"],
+  ]); // Die Tabelle sollte aktualisiert und erweitert werden
 });
+
+test("<0 setCell",()=>{
+  let table=new Table([["a","b"]])
+  expect(()=>table.setCell(-1, 3,"r")).toThrow("Bitt positve zahl eingeben ")
+})
 test("Gibt nie null oder undefined zurück, auch wenn in einer Zelle noch kein Text vorhanden ist", () => {
   const table = new Table();
   const oldText = table.setCell(2, 2, "x");

@@ -53,6 +53,9 @@ export class Table {
      * @return Der Text, der vorher in der Zelle war (evtl. "", aber nie null oder undefined)
      */
     setCell(col: number, row: number, text: string): string {
+        if(col<0 ||row<0){
+            throw new Error("Bitt positve zahl eingeben ")
+        }
         //setzten col und row auf -1 damit wir 0 kriegen 
          col=col-1;
          row=row-1;
@@ -61,8 +64,10 @@ export class Table {
             this.values.push([]);
         }
         //Falls spalten anzahl kleiner ist als row dann packe ich leere strings und ein zeilen rein 
-        while (this.values.length<=col) {
-            this.values.push([]);
+        while (this.values[0].length<=col) {
+            this.values.forEach((pusher)=>{
+                pusher.push("");
+            });
         }
         //speichere alten wert ab um ihn zu returnen ||falls es den nicht gibt return leeren string
         let oldText=this.values[row][col]||"";
@@ -178,7 +183,7 @@ export class Table {
     deleteColumn(col: number): boolean {
          col=col-1
         //checken ob es über das feld geht und ob negative zahl
-        if(col>this.values.length||col<=0){
+        if(col>this.values[0].length||col<=0){
             return false
         }
         else{
