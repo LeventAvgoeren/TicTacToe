@@ -54,20 +54,20 @@ export class Table {
      */
     setCell(col: number, row: number, text: string): string {
         //setzten col und row auf -1 damit wir 0 kriegen 
-        let newCol=col-1;
-        let newRow=row-1;
+         col=col-1;
+         row=row-1;
         //falls zeilen anzahl kleiner ist werden immer mehr arrays rein gepusht
-        while(this.values.length<=newRow){
+        while(this.values.length<=row){
             this.values.push([]);
         }
-        //Falls spalten anzahl kleiner ist als newRow dann packe ich leere strings und ein zeilen rein 
-        while (this.values.length<=newCol) {
+        //Falls spalten anzahl kleiner ist als row dann packe ich leere strings und ein zeilen rein 
+        while (this.values.length<=col) {
             this.values.push([]);
         }
         //speichere alten wert ab um ihn zu returnen ||falls es den nicht gibt return leeren string
-        let oldText=this.values[newRow][newCol]||" ";
+        let oldText=this.values[row][col]||"";
         //setze neuen text  
-        this.values[newRow][newCol] =text;
+        this.values[row][col] =text;
         return oldText;
     }
 
@@ -80,14 +80,14 @@ export class Table {
      * @return der Text, evtl. leer ("") aber nie null oder undefined
      */
     getCell(col: number, row: number): string {
-        let newCol=col-1;
-        let newRow=row-1;
+         col=col-1;
+         row=row-1;
         //Wenn es ausserhalb leigt dann gib leeren string zurück 
-        if(newRow>this.values.length && newCol >this.values.length){
-            return " ";
+        if(row>this.values.length && col >this.values.length){
+            return "";
         }
         else{
-            return this.values[newRow][newCol]|| " ";
+            return this.values[row][col]|| "";
         }
     }
 
@@ -102,15 +102,16 @@ export class Table {
     * @param row Zeilenindex, an der neue Zeile eingefügt werden soll, 1-basiert.
     * @return true, wenn tatsächlich eine Zeile eingefügt wurde.
     */
+   //reihe setzen
     insertRowBefore(row: number): boolean {
-        let newRow= row-1;
+         row= row-1;
         //Falls der Zeilenindex größer-gleich als die aktuelle Anzahl an Zeilen ist
-        if(row>=this.values.length|| newRow<=0){
+        if(row>=this.values.length|| row<=0){
             return false;
         }
         else{  
             //anfang,wieviel wir entfernen wollen und was wir rein machen wollen
-            this.values.splice(newRow,0,[]);
+            this.values.splice(row,0,[]);
             return true;
         }
         
@@ -125,13 +126,15 @@ export class Table {
      * @param row Zeilenindex der zu löschenden Zeile, 1-basiert
      * @returns true, wenn tatsächlich etwas verändert wurde
      */
+    //reihe löschen
     deleteRow(row: number): boolean {
-        let newRow= row-1;
-        if(newRow>=this.values.length || newRow<=0){
+         row= row-1;
+        if(row>=this.values.length || row<=0){
             return false;
         }
         else{
-            this.values.splice(newRow,1);
+            //anfang undwieviel wir löschen wollen 
+            this.values.splice(row,1);
             return true ;
         }
     }
@@ -147,16 +150,17 @@ export class Table {
      * @param col Spaltenindex, an der neue Spalte eingefügt werden soll, 1-basiert.
      * @return true, wenn tatsächlich eine Spalte eingefügt wurde.
      */
+    //spalte hinzufügen
     insertColumnLeft(col: number): boolean {
-        let newCol=col-1;
-        //Gucken nach ob newCol über die größe geht oder ob es eine negative zahl ist 
-        if(newCol>this.values[0].length ||newCol<=0){
+         col=col-1;
+        //Gucken nach ob col über die größe geht oder ob es eine negative zahl ist 
+        if(col>=this.values.length ||col<0){
             return false;
         }
         else{
-            for (let index = 0; index < this.values.length; index++) {
-                this.values[index].splice(newCol,0," ");
-            }
+            this.values.forEach((column)=>{
+                 column.splice(col,0,"");
+            }) 
             return true;
         }
     }
@@ -170,20 +174,19 @@ export class Table {
      * @param col Spaltenindex der zu löschenden Spalte, 1-basiert
      * @returns true, wenn tatsächlich etwas verändert wurde
      */
+    //spalte löschen 
     deleteColumn(col: number): boolean {
-        let newCol=col-1
+         col=col-1
         //checken ob es über das feld geht und ob negative zahl
-        if(newCol>this.values[0].length||newCol<=0){
+        if(col>this.values.length||col<=0){
             return false
         }
         else{
-            //lösche alle spalten an dem gewünschten index
-            for (let index = 0; index < this.values.length; index++) {
-                this.values[index].splice(newCol,1)
-            }
-            return true 
+            this.values.forEach((spalteDeleten)=>{
+                spalteDeleten.splice(col,1)
+            })
+            return true; 
         }
     }
 
 }
-

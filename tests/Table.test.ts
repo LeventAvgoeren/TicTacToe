@@ -54,7 +54,7 @@ test("Gibt nie null oder undefined zurück, auch wenn in einer Zelle noch kein T
   const oldText = table.setCell(2, 2, "x");
   expect(oldText).not.toBeUndefined();
   expect(oldText).not.toBeNull();
-  expect(oldText).toBe(" ");
+  expect(oldText).toBe("");
 });
 test("gibt den wert zurück ", () => {
   const table = new Table([["a", "b"], ["c", "d"]]);
@@ -63,12 +63,12 @@ test("gibt den wert zurück ", () => {
 
 test("Gibt einen leeren String zurück wenn die Zeile oder Spalte nicht existiert", () => {
   const table = new Table();
-  expect(table.getCell(3, 3)).toBe(" ");
+  expect(table.getCell(3, 3)).toBe("");
 });
 test("Gibt einen leeren String zurück wenn die Zelle noch nicht gesetzt wurde", () => {
   const table = new Table();
   table.setCell(2, 2, "");
-  expect(table.getCell(2, 2)).toBe(" ");
+  expect(table.getCell(2, 2)).toBe("");
 });
 
 
@@ -133,7 +133,7 @@ test("nicht 0 zeile löschen", () => {
     ["4", "5", "6"], 
     ["7", "8", "9"]]);
 });
-test("false soll eintreffen über array hinaus ", () => {
+test("Insert column false soll eintreffen über array hinaus ", () => {
   let table = new Table(
     [["1", "2", "3"], 
      ["4", "5", "6"], 
@@ -144,12 +144,21 @@ test("false soll eintreffen über array hinaus ", () => {
     ["4", "5", "6"],
     ["7", "8", "9"]]);
 });
-test('should insert a column at the specified index', () => {
-  let table = new Table([["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]);
+
+
+test('InsertColumn should insert a column at the specified index', () => {
+  let table = new Table(
+    [["1", "2", "3"], 
+    ["4", "5", "6"], 
+    ["7", "8", "9"]]);
   let result = table.insertColumnLeft(2);
-  expect(table._rows).toEqual([["1", " ", "2", "3"], ["4", " ", "5", "6"], ["7", " ", "8", "9"]]);
+  expect(table._rows).toEqual(
+    [["1", "", "2", "3"], 
+    ["4", "", "5", "6"],
+    ["7", "", "8", "9"]]);
 });
-test("Spalte löschen",()=>{
+
+test("Delete Spalte löschen",()=>{
   let table = new Table(
   [["1", "2", "3"], 
    ["4", "5", "6"], 
