@@ -41,7 +41,8 @@ export class Table {
         return this.values // Feld muss noch geeignet angelegt werden.
     }
 
-    /**
+    /** 
+     * Mit Kommilitonen gearbeitet
      * Setzt den Text in der Zelle mit gegebener Spalte und Zeile.
      * 
      * Falls col größer der aktuellen Spaltenzahl ist, werden entsprechend leere Spalten angefügt.
