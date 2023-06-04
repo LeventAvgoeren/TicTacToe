@@ -57,7 +57,7 @@ test("Gibt nie null oder undefined zurück, auch wenn in einer Zelle noch kein T
   expect(oldText).toBe("");
 });
 test("gibt den wert zurück ", () => {
-  const table = new Table([["a", "b"], ["c", "d"]]);
+  const table = new Table([["a","b"], ["c","d"]]);
   expect(table.getCell(1, 1)).toBe("a");
 });
 
@@ -146,7 +146,7 @@ test("Insert column false soll eintreffen über array hinaus ", () => {
 });
 
 
-test('InsertColumn should insert a column at the specified index', () => {
+test('InsertColumn " hinzufügen an 2 stelle', () => {
   let table = new Table(
     [["1", "2", "3"], 
     ["4", "5", "6"], 
