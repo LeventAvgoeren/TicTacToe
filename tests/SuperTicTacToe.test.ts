@@ -113,6 +113,13 @@ actual.set(0, 1, "X")
 actual.set(0, 2, "X")
 expect(actual.gewinner()).toBe("X");
 })
+test("gewinner zeile 0",()=>{
+  let actual=new SuperTicTacToe(3);
+  actual.set(0, 0, "O")
+  actual.set(0, 1, "O")
+  actual.set(0, 2, "O")
+  expect(actual.gewinner()).toBe("O");
+  })
 test("gewinner zeile 1",()=>{
   let actual=new SuperTicTacToe(3);
   actual.set(1, 0, "X")
@@ -141,6 +148,13 @@ test("gewinner Spalte 0", () => {
   actual.set(1, 0, "X");
   actual.set(2, 0, "X");
   expect(actual.gewinner()).toBe("X");
+});
+test("gewinner Spalte 0", () => {
+  let actual = new SuperTicTacToe(3);
+  actual.set(0, 0, "O");
+  actual.set(1, 0, "O");
+  actual.set(2, 0, "O");
+  expect(actual.gewinner()).toBe("O");
 });
 test("kein gewinner Spalte 0", () => {
   let actual = new SuperTicTacToe(3);
